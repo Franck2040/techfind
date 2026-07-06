@@ -1,0 +1,114 @@
+// =============================================================================
+// schema.prisma — Modèle de la base de données (Prisma).
+// -----------------------------------------------------------------------------
+// C'est LE schéma central : chaque `model` devient une table.
+// Après toute modification ici, lancez :  npm run db:push   (applique le schéma)
+//
+// Base par défaut : SQLite (fichier prisma/dev.db). Pour PostgreSQL en prod,
+// changez `provider = "postgresql"` ci-dessous et l'URL dans .env.
+// Les prix sont en ENTIERS (FCFA n'a pas de centimes) -> type Int.
+// =============================================================================
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+// --- Utilisateur -------------------------------------------------------------
+model User {
+  id           String    @id @default(cuid())
+  name         String
+  email        String    @unique // Sert d'identifiant de connexion
+  passwordHash String // Mot de passe HASHÉ (bcrypt) — jamais en clair
+  address      String? // Adresse/Quartier/Ville (optionnel)
+  createdAt    DateTime  @default(now())
+  sessions     Session[]
+  orders       Order[]
+}
+
+// --- Session de connexion ----------------------------------------------------
+// On stocke un jeton opaque et aléatoire côté serveur ; le cookie du navigateur
+// ne contient que ce jeton (httpOnly). Approche simple, transparente et sûre.
+model Session {
+  id        String   @id @default(cuid())
+  token     String   @unique
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+
+  @@index([userId])
+}
+
+// --- Catégorie de produits ---------------------------------------------------
+model Category {
+  id       String    @id @default(cuid())
+  slug     String    @unique
+  name     String
+  icon     String? // Nom d'icône Lucide (ex: "Laptop")
+  products Product[]
+}
+
+// --- Produit -----------------------------------------------------------------
+model Product {
+  id           String      @id @default(cuid())
+  slug         String      @unique
+  name         String
+  description  String
+  price        Int // en FCFA
+  image        String // Image principale (chemin dans /public ou URL)
+  gallery      String? // Images secondaires, séparées par des virgules
+  stock        Int         @default(0)
+  rating       Float       @default(0) // Note moyenne (0 à 5)
+  reviewsCount Int         @default(0)
+  brand        String?
+  colors       String? // Couleurs dispo, séparées par des virgules
+  sizes        String? // Tailles dispo, séparées par des virgules
+  featured     Boolean     @default(false) // Mis en avant sur l'accueil
+  categoryId   String
+  category     Category    @relation(fields: [categoryId], references: [id])
+  createdAt    DateTime    @default(now())
+  orderItems   OrderItem[]
+
+  @@index([categoryId])
+}
+
+// --- Commande ----------------------------------------------------------------
+model Order {
+  id            String      @id @default(cuid())
+  userId        String? // null si commande sans compte (invité)
+  user          User?       @relation(fields: [userId], references: [id])
+  // Coordonnées de livraison saisies au paiement
+  firstName     String
+  company       String?
+  address       String
+  apartment     String?
+  city          String
+  phone         String
+  email         String
+  total         Int // Montant total RECALCULÉ côté serveur (jamais celui du client)
+  paymentMethod String // "livraison" | "carte" | ...
+  status        String      @default("en_attente") // en_attente | payee | expediee | livree | annulee
+  createdAt     DateTime    @default(now())
+  items         OrderItem[]
+
+  @@index([userId])
+}
+
+// --- Ligne de commande -------------------------------------------------------
+model OrderItem {
+  id        String   @id @default(cuid())
+  orderId   String
+  order     Order    @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  productId String?
+  product   Product? @relation(fields: [productId], references: [id])
+  name      String // Copie du nom au moment de l'achat (historique fiable)
+  price     Int // Copie du prix unitaire au moment de l'achat
+  quantity  Int
+  color     String?
+  size      String?
+}

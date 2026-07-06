@@ -1,0 +1,84 @@
+/* ==========================================================================
+   globals.css — Feuille de style globale + Design System Techfind
+   --------------------------------------------------------------------------
+   Tailwind v4 se configure ICI (en CSS), pas dans un tailwind.config.js.
+   - Le bloc @theme définit les "tokens" : couleurs, polices... exposés comme
+     classes utilitaires (ex: --color-orange -> bg-orange / text-orange).
+   - POUR MODIFIER LA CHARTE GRAPHIQUE : changez une valeur ci-dessous, elle
+     se propage partout dans le site. Ne codez jamais un code hex en dur ailleurs.
+   ========================================================================== */
+
+@import "tailwindcss";
+
+@theme {
+  /* --- Couleurs de marque (extraites de la maquette Figma) --- */
+  --color-navy: #003f62; /* Bleu foncé principal : header, footer, titres */
+  --color-navy-2: #1b5a7d; /* Bleu secondaire : liens, hover */
+  --color-orange: #eda415; /* Orange CTA : boutons principaux, prix */
+  --color-orange-light: #ffad33; /* Orange clair : hover, badges */
+  --color-blue-accent: #58a0e2; /* Bleu accent : textes promo */
+  --color-sky: #b3d4e5; /* Bleu ciel : fonds de section, cases à cocher */
+  --color-sky-soft: #e2f4ff; /* Bleu très clair : en-têtes de tableau */
+  --color-danger: #db4444; /* Rouge : actions destructives, erreurs */
+  --color-success: #3aae3f; /* Vert : logo "find", état "En stock" */
+
+  /* --- Neutres --- */
+  --color-ink: #222222; /* Texte principal */
+  --color-muted: #606060; /* Texte secondaire */
+  --color-faint: #acacac; /* Placeholders, texte désactivé */
+  --color-line: #d9d9d9; /* Bordures */
+  --color-surface: #f5f5f5; /* Fonds gris clairs */
+
+  /* --- Typographie (variables injectées par next/font dans layout.tsx) --- */
+  --font-sans: var(--font-inter); /* Corps de texte */
+  --font-heading: var(--font-poppins); /* Titres (arrondi, comme la maquette) */
+
+  /* --- Rayons --- */
+  --radius-card: 0.75rem;
+  --radius-pill: 9999px;
+}
+
+/* --------------------------------------------------------------------------
+   Styles de base
+   -------------------------------------------------------------------------- */
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: #ffffff;
+    color: var(--color-ink);
+    font-family: var(--font-sans), system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-heading), var(--font-sans), sans-serif;
+    color: var(--color-navy);
+    font-weight: 600;
+    line-height: 1.15;
+  }
+
+  /* Accessibilité : anneau de focus visible et cohérent au clavier */
+  :focus-visible {
+    outline: 2px solid var(--color-orange);
+    outline-offset: 2px;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Utilitaires personnalisés
+   -------------------------------------------------------------------------- */
+
+/* Masque la barre de défilement (pour les carrousels horizontaux mobiles) */
+@utility no-scrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
