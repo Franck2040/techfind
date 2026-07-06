@@ -192,4 +192,4 @@ SQLite à **PostgreSQL** :
 
 ---
 
-<p align="center"><sub>Projet réalisé avec passion. Développement assisté par IA (Claude Code).</sub></p>
+<p align="center"><sub>Projet réalisé avec passion. Développement assisté par IA.</sub></p>
