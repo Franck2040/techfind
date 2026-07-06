@@ -1,7 +1,7 @@
 <h1 align="center">Techfind</h1>
 
 <p align="center">
-  <strong>Boutique e-commerce high-tech — moderne, responsive et sécurisée.</strong><br/>
+  <strong>Boutique e-commerce high-tech : moderne, responsive et sécurisée.</strong><br/>
   Vente d'ordinateurs, téléphones et matériel informatique au Cameroun 🇨🇲
 </p>
 
@@ -18,7 +18,7 @@
 ## À propos du projet
 
 **Techfind** est un projet e-commerce que j'ai conçu de bout en bout, de l'idée à la mise en
-œuvre. Mon objectif : livrer une véritable boutique en ligne — pas une simple démo — pensée
+œuvre. Mon objectif : livrer une véritable boutique en ligne, pas une simple démo, pensée
 comme le ferait une équipe professionnelle : **interface épurée et responsive, code propre et
 commenté, et surtout une attention constante portée à la sécurité**.
 
@@ -30,20 +30,20 @@ modélisation, puis développement.
 J'ai construit ce projet étape par étape, en traitant d'abord la réflexion et le design avant
 d'écrire la moindre ligne de code :
 
-1. **Identité visuelle** — j'ai créé le logo Techfind sous **Adobe Photoshop**, ainsi que la
+1. **Identité visuelle** : j'ai créé le logo Techfind sous **Adobe Photoshop**, ainsi que la
    direction graphique (couleurs, typographie).
-2. **Maquettage** — j'ai réalisé les maquettes **web et mobile sur Figma** (voir les liens en bas
+2. **Maquettage** : j'ai réalisé les maquettes **web et mobile sur Figma** (voir les liens en bas
    de page), écran par écran.
-3. **Analyse** — j'ai modélisé le projet avec des **diagrammes UML** et défini les **cas
+3. **Analyse** : j'ai modélisé le projet avec des **diagrammes UML** et défini les **cas
    d'utilisation**, afin de cadrer les fonctionnalités attendues.
-4. **Parcours utilisateur (UX)** — je me suis mis à la place du client : comment il arrive sur le
+4. **Parcours utilisateur (UX)** : je me suis mis à la place du client : comment il arrive sur le
    site, navigue dans le catalogue, ajoute au panier et finalise sa commande, pour rendre
    l'expérience fluide et intuitive.
-5. **Conception de la base de données** — j'ai défini les **entités** (utilisateurs, produits,
+5. **Conception de la base de données** : j'ai défini les **entités** (utilisateurs, produits,
    catégories, commandes…) et les relations, puis créé la base.
-6. **Sécurité** — j'ai réfléchi aux risques en amont (validation des données, protection des mots
+6. **Sécurité** : j'ai réfléchi aux risques en amont (validation des données, protection des mots
    de passe, recalcul des montants côté serveur…) plutôt que de les traiter après coup.
-7. **Développement** — j'ai ensuite implémenté le site avec une stack moderne, en **m'appuyant sur
+7. **Développement** : j'ai ensuite implémenté le site avec une stack moderne, en **m'appuyant sur
    l'IA (Claude Code) pour avancer efficacement**, tout en gardant la maîtrise de l'architecture,
    des choix techniques et de la sécurité.
 
@@ -151,7 +151,7 @@ techfind/
 
 La sécurité a été pensée dès la conception :
 
-- **Mots de passe hachés** avec bcrypt — jamais stockés en clair.
+- **Mots de passe hachés** avec bcrypt : jamais stockés en clair.
 - **Sessions** via un jeton aléatoire opaque + cookie `httpOnly` (inaccessible au JavaScript).
 - **Validation systématique côté serveur** (Zod) de toutes les entrées utilisateur.
 - **Montants recalculés côté serveur** au paiement : les prix envoyés par le navigateur ne sont
@@ -162,7 +162,7 @@ La sécurité a été pensée dès la conception :
 
 > 🔧 Pistes d'amélioration pour une mise en production à grande échelle : limitation du taux de
 > requêtes (rate-limiting) sur la connexion, CSP à base de *nonce*, et intégration d'un prestataire
-> de paiement (Stripe / Mobile Money) — les points d'intégration sont documentés dans le code.
+> de paiement (Stripe / Mobile Money) : les points d'intégration sont documentés dans le code.
 
 ## 🎨 Personnalisation
 
@@ -183,12 +183,12 @@ SQLite à **PostgreSQL** :
 
 ## 🎯 Maquettes Figma
 
-- **Version Web** — [Design](https://www.figma.com/design/rcla98opo3CgOLG0CwOOwm/Techfind?node-id=0-1) · [Prototype](https://www.figma.com/proto/rcla98opo3CgOLG0CwOOwm/Techfind?node-id=0-1)
-- **Version Mobile** — [Design](https://www.figma.com/design/Y7qbrTjUq3EZxPIskdwhFs/Mobile-Techfind?node-id=0-1) · [Prototype](https://www.figma.com/proto/Y7qbrTjUq3EZxPIskdwhFs/Mobile-Techfind?node-id=0-1)
+- **Version Web** : [Design](https://www.figma.com/design/rcla98opo3CgOLG0CwOOwm/Techfind?node-id=0-1) · [Prototype](https://www.figma.com/proto/rcla98opo3CgOLG0CwOOwm/Techfind?node-id=0-1)
+- **Version Mobile** : [Design](https://www.figma.com/design/Y7qbrTjUq3EZxPIskdwhFs/Mobile-Techfind?node-id=0-1) · [Prototype](https://www.figma.com/proto/Y7qbrTjUq3EZxPIskdwhFs/Mobile-Techfind?node-id=0-1)
 
 ## 👤 Auteur
 
-**Kenmeugne Calixte** — conception, design (Photoshop & Figma), modélisation et développement.
+**Kenmeugne Calixte** : conception, design (Photoshop & Figma), modélisation et développement.
 
 ---
 
