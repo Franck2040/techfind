@@ -1,4 +1,6 @@
-<h1 align="center">Techfind</h1>
+<h1 align="center">
+  <img src="docs/screenshots/techfind.png" alt="Logo Techfind" width="20%" align="center"/>  
+</h1>
 
 <p align="center">
   <strong>Boutique e-commerce high-tech : moderne, responsive et sécurisée.</strong><br/>
