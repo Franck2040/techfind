@@ -15,7 +15,7 @@ import { ProductImage } from "@/components/product/ProductImage";
 import { GoogleIcon, FacebookIcon, WhatsappIcon } from "@/components/ui/SocialIcons";
 import { formatPrice, parseList } from "@/lib/utils";
 import { useCart } from "@/context/CartContext";
-import type { Product } from "@prisma/client";
+import type { Product } from "@/lib/catalog";
 
 export function ProductDetail({
   product,

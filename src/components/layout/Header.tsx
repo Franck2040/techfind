@@ -27,7 +27,7 @@ import {
 import { Logo } from "@/components/ui/Logo";
 import { Drawer } from "@/components/ui/Drawer";
 import { useCart } from "@/context/CartContext";
-import type { SafeUser } from "@/lib/auth"; // import de TYPE seulement (effacé au build)
+import { useAuth } from "@/context/AuthContext";
 import { cn } from "@/lib/utils";
 
 type Cat = { slug: string; name: string };
@@ -39,14 +39,9 @@ const navLinks = [
   { label: "Nous contacter", href: "/contact" },
 ];
 
-export function Header({
-  user,
-  categories,
-}: {
-  user: SafeUser | null;
-  categories: Cat[];
-}) {
+export function Header({ categories }: { categories: Cat[] }) {
   const router = useRouter();
+  const { user } = useAuth();
   const { totalItems, isReady } = useCart();
   const [menuOpen, setMenuOpen] = useState(false); // tiroir mobile
   const [browseOpen, setBrowseOpen] = useState(false); // menu "Parcourir" desktop
@@ -160,7 +155,7 @@ export function Header({
           </nav>
 
           <div className="ml-auto flex items-center gap-6 text-sm text-ink">
-            <Link href="/contact" className="flex items-center gap-2 hover:text-orange">
+            <Link href="/nos-magasins" className="flex items-center gap-2 hover:text-orange">
               <MapPin className="size-4" aria-hidden /> Nos Magasins
             </Link>
             <Link href="/compte" className="flex items-center gap-2 hover:text-orange">
@@ -190,6 +185,13 @@ export function Header({
               {l.label}
             </Link>
           ))}
+          <Link
+            href="/nos-magasins"
+            onClick={() => setMenuOpen(false)}
+            className="rounded-md px-4 py-3 text-ink hover:bg-surface"
+          >
+            Nos magasins
+          </Link>
 
           <div className="my-2 h-px bg-line" />
 

@@ -5,7 +5,7 @@
  */
 import { ProductCard } from "@/components/product/ProductCard";
 import { cn } from "@/lib/utils";
-import type { Product } from "@prisma/client";
+import type { Product } from "@/lib/catalog";
 
 export function ProductGrid({
   products,

@@ -5,7 +5,7 @@
  */
 import { ScrollRow } from "@/components/product/ScrollRow";
 import { ProductCard } from "@/components/product/ProductCard";
-import type { Product } from "@prisma/client";
+import type { Product } from "@/lib/catalog";
 
 export function ProductCarousel({ products }: { products: Product[] }) {
   return (

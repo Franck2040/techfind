@@ -1,17 +1,15 @@
+"use client";
 /**
- * commande/[id]/page.tsx — Confirmation de commande.
- * Affiche le récapitulatif après un achat. L'identifiant est un cuid non
- * devinable (sert de lien de confirmation).
+ * commande/confirmation/page.tsx — Confirmation après un achat (mode démo).
+ * Lit la dernière commande enregistrée dans le navigateur (localStorage) et
+ * affiche son récapitulatif.
  */
-import { notFound } from "next/navigation";
+import { useEffect, useState } from "react";
 import { CheckCircle2 } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
-import { getOrderById } from "@/lib/data";
-import { getCurrentUser } from "@/lib/auth";
+import { getLastOrder, type DemoOrder } from "@/lib/demoOrders";
 import { formatPrice } from "@/lib/utils";
-
-export const metadata = { title: "Confirmation de commande" };
 
 const PAYMENT_LABELS: Record<string, string> = {
   livraison: "Paiement à la livraison",
@@ -19,22 +17,28 @@ const PAYMENT_LABELS: Record<string, string> = {
   carte: "Carte bancaire",
 };
 
-export default async function OrderConfirmationPage({
-  params,
-}: {
-  params: Promise<{ id: string }>;
-}) {
-  const { id } = await params;
-  const order = await getOrderById(id);
-  if (!order) notFound();
+export default function OrderConfirmationPage() {
+  const [order, setOrder] = useState<DemoOrder | null>(null);
+  const [ready, setReady] = useState(false);
 
-  // Sécurité : si la commande est rattachée à un compte, seul son propriétaire
-  // peut la consulter (évite qu'un autre utilisateur voie des données perso).
-  // Les commandes "invité" (sans compte) restent accessibles via leur lien
-  // unique et non devinable (l'identifiant sert de jeton de confirmation).
-  if (order.userId) {
-    const user = await getCurrentUser();
-    if (!user || user.id !== order.userId) notFound();
+  useEffect(() => {
+    setOrder(getLastOrder());
+    setReady(true);
+  }, []);
+
+  if (!ready) {
+    return <Container className="py-20 text-center text-muted">Chargement…</Container>;
+  }
+
+  if (!order) {
+    return (
+      <Container className="py-20 text-center">
+        <p className="text-muted">Aucune commande récente à afficher.</p>
+        <Button href="/produits" className="mt-4">
+          Voir les produits
+        </Button>
+      </Container>
+    );
   }
 
   return (
@@ -43,8 +47,9 @@ export default async function OrderConfirmationPage({
         <CheckCircle2 className="mx-auto size-14 text-success" aria-hidden />
         <h1 className="mt-4 font-heading text-3xl font-bold text-navy">Merci pour votre commande !</h1>
         <p className="mt-2 text-muted">
-          Votre commande <span className="font-medium text-navy">#{order.id.slice(-8).toUpperCase()}</span>{" "}
-          a bien été enregistrée. Nous vous contacterons au {order.phone}.
+          Votre commande{" "}
+          <span className="font-medium text-navy">#{order.id.slice(0, 8).toUpperCase()}</span> a bien
+          été enregistrée. Nous vous contacterons au {order.phone}.
         </p>
       </div>
 
@@ -53,8 +58,8 @@ export default async function OrderConfirmationPage({
           Récapitulatif
         </h2>
         <ul className="divide-y divide-line">
-          {order.items.map((item) => (
-            <li key={item.id} className="flex justify-between gap-3 px-5 py-3 text-sm">
+          {order.items.map((item, i) => (
+            <li key={i} className="flex justify-between gap-3 px-5 py-3 text-sm">
               <span className="text-ink">
                 {item.name} <span className="text-muted">× {item.quantity}</span>
                 {item.size && <span className="text-muted"> · {item.size}</span>}

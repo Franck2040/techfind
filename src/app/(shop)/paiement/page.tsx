@@ -14,6 +14,7 @@ import { Button } from "@/components/ui/Button";
 import { Label, Input, FieldError } from "@/components/ui/FormField";
 import { useCart } from "@/context/CartContext";
 import { createOrder } from "@/lib/actions/order";
+import { saveOrder } from "@/lib/demoOrders";
 import { formatPrice } from "@/lib/utils";
 
 type Errors = Record<string, string[] | undefined>;
@@ -73,8 +74,9 @@ export default function CheckoutPage() {
     startTransition(async () => {
       const result = await createOrder({ form, items: payloadItems });
       if (result.ok) {
+        saveOrder(result.order); // mémorise la commande (localStorage)
         clearCart();
-        router.push(`/commande/${result.orderId}`);
+        router.push("/commande/confirmation");
       } else {
         setErrors(result.fieldErrors ?? {});
         setMessage(result.message ?? "Une erreur est survenue.");

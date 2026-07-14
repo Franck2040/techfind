@@ -1,5 +1,5 @@
 <h1 align="center">
-  <img src="docs/screenshots/techfind.png" alt="Logo Techfind" width="20%" align="center"/>  
+  <img src="docs/screenshots/techfind.png" alt="Logo Techfind" width="20%" align="center"/>
 </h1>
 
 <p align="center">
@@ -12,7 +12,6 @@
   <img alt="React" src="https://img.shields.io/badge/React-19-149ECA?logo=react&logoColor=white"/>
   <img alt="TypeScript" src="https://img.shields.io/badge/TypeScript-strict-3178C6?logo=typescript&logoColor=white"/>
   <img alt="Tailwind CSS" src="https://img.shields.io/badge/Tailwind_CSS-v4-06B6D4?logo=tailwindcss&logoColor=white"/>
-  <img alt="Prisma" src="https://img.shields.io/badge/Prisma-ORM-2D3748?logo=prisma&logoColor=white"/>
 </p>
 
 ---
@@ -22,10 +21,10 @@
 **Techfind** est un projet e-commerce que j'ai conçu de bout en bout, de l'idée à la mise en
 œuvre. Mon objectif : livrer une véritable boutique en ligne, pas une simple démo, pensée
 comme le ferait une équipe professionnelle : **interface épurée et responsive, code propre et
-commenté, et surtout une attention constante portée à la sécurité**.
+commenté, et une attention constante portée à la sécurité et à l'expérience utilisateur**.
 
-Ce dépôt regroupe l'aboutissement d'une démarche complète : réflexion, conception, design,
-modélisation, puis développement.
+> 🌐 **Démo en ligne** : _déployable en un clic sur Vercel_ (voir la section [Déploiement](#-déploiement)).
+> Cette version vitrine permet de tester librement le parcours d'achat.
 
 ## 🧭 Ma démarche de conception
 
@@ -34,20 +33,20 @@ d'écrire la moindre ligne de code :
 
 1. **Identité visuelle** : j'ai créé le logo Techfind sous **Adobe Photoshop**, ainsi que la
    direction graphique (couleurs, typographie).
-2. **Maquettage** : j'ai réalisé les maquettes **web et mobile sur Figma** (voir les liens en bas
-   de page), écran par écran.
+2. **Maquettage** : j'ai réalisé les maquettes **web et mobile sur Figma** (liens en bas de page),
+   écran par écran.
 3. **Analyse** : j'ai modélisé le projet avec des **diagrammes UML** et défini les **cas
-   d'utilisation**, afin de cadrer les fonctionnalités attendues.
-4. **Parcours utilisateur (UX)** : je me suis mis à la place du client : comment il arrive sur le
-   site, navigue dans le catalogue, ajoute au panier et finalise sa commande, pour rendre
-   l'expérience fluide et intuitive.
+   d'utilisation** pour cadrer les fonctionnalités.
+4. **Parcours utilisateur (UX)** : je me suis mis à la place du client : arrivée sur le site,
+   navigation dans le catalogue, ajout au panier, finalisation de la commande, pour une
+   expérience fluide et intuitive.
 5. **Conception de la base de données** : j'ai défini les **entités** (utilisateurs, produits,
-   catégories, commandes…) et les relations, puis créé la base.
+   catégories, commandes…) et leurs relations.
 6. **Sécurité** : j'ai réfléchi aux risques en amont (validation des données, protection des mots
    de passe, recalcul des montants côté serveur…) plutôt que de les traiter après coup.
-7. **Développement** : j'ai ensuite implémenté le site avec une stack moderne, en **m'appuyant sur
-   l'IA (Claude Code) pour avancer efficacement**, tout en gardant la maîtrise de l'architecture,
-   des choix techniques et de la sécurité.
+7. **Développement** : j'ai implémenté le site avec une stack moderne, en m'appuyant sur l'IA pour
+   avancer efficacement, tout en gardant la maîtrise de l'architecture, des choix techniques et de
+   la sécurité.
 
 ## 🖼️ Aperçu
 
@@ -58,22 +57,25 @@ d'écrire la moindre ligne de code :
   <img src="docs/screenshots/produits.png" alt="Liste des produits avec filtres" width="49%"/>
   <img src="docs/screenshots/fiche-produit.png" alt="Fiche produit" width="49%"/>
 </p>
-<p align="center">
-  <img src="docs/screenshots/paiement.png" alt="Page de paiement" width="49%"/>
-  <img src="docs/screenshots/accueil-mobile.png" alt="Version mobile" width="24%"/>
-</p>
 
 ## ✨ Fonctionnalités
 
-- **Catalogue** dynamique (produits & catégories servis depuis la base de données)
+- **Catalogue** de produits avec de vraies photos, catégories et mises en avant
 - **Recherche** et **filtres** (catégorie, disponibilité, tri) synchronisés avec l'URL
 - **Fiche produit** détaillée : variantes (couleur/taille), quantité, produits similaires
 - **Panier** persistant (survit au rafraîchissement) avec mise à jour en temps réel
-- **Tunnel de commande** avec **recalcul du montant côté serveur** et gestion du stock
+- **Tunnel de commande** avec **validation et recalcul du montant côté serveur**
 - **Comptes utilisateurs** : inscription, connexion, profil, historique des commandes
-- **Pages** : accueil, produits, fiche produit, panier, paiement, compte, à propos, contact
+- **Page « Nos magasins »** (boutiques Yaoundé & Douala)
 - **100% responsive** (mobile → desktop) avec menu et filtres en tiroir sur mobile
 - **Accessibilité** soignée (HTML sémantique, navigation clavier, contrastes)
+
+## 🧱 Deux versions
+
+| Branche | Description |
+| ------- | ----------- |
+| **`main`** (celle-ci) | **Version démo** déployable sur Vercel *sans base de données* : catalogue statique, panier et comptes gérés côté navigateur. Idéale pour tester le design et le parcours. |
+| **`full-stack`** | Version complète avec **base de données Prisma**, **authentification réelle** (bcrypt + sessions), commandes persistées. |
 
 ## 🛠️ Stack technique
 
@@ -82,9 +84,8 @@ d'écrire la moindre ligne de code :
 | Framework      | **Next.js 16** (App Router) + **React 19**              |
 | Langage        | **TypeScript** (mode strict)                            |
 | Styles         | **Tailwind CSS v4** (design tokens centralisés)         |
-| Base de données| **Prisma ORM** + **SQLite** (commutable PostgreSQL)     |
-| Authentification | Sessions maison + **bcrypt** (cookie httpOnly)        |
 | Validation     | **Zod** (côté serveur)                                  |
+| Données (démo) | Catalogue statique • panier & comptes en `localStorage` |
 | Icônes         | lucide-react                                            |
 
 ## 🚀 Démarrage rapide
@@ -95,93 +96,65 @@ d'écrire la moindre ligne de code :
 # 1. Installer les dépendances
 npm install
 
-# 2. Configurer l'environnement
-cp .env.example .env        # (Windows : copy .env.example .env)
-
-# 3. Créer la base de données et la remplir de produits de démonstration
-npm run db:push
-npm run db:seed
-
-# 4. Lancer le serveur de développement
+# 2. Lancer le serveur de développement
 npm run dev
 ```
 
-Le site est alors disponible sur **http://localhost:3000**.
+Le site est disponible sur **http://localhost:3000**. Aucune configuration ni base de données n'est
+nécessaire pour la version démo.
 
 ## 📜 Scripts npm
 
-| Script            | Description                                             |
-| ----------------- | ------------------------------------------------------- |
-| `npm run dev`     | Serveur de développement                                |
-| `npm run build`   | Build de production                                     |
-| `npm run start`   | Lance le build de production                            |
-| `npm run lint`    | Analyse du code (ESLint)                                |
-| `npm run db:push` | Applique le schéma Prisma à la base                     |
-| `npm run db:seed` | Remplit la base (catégories, produits, vignettes)       |
-| `npm run db:studio` | Ouvre Prisma Studio (explorer la base visuellement)   |
-| `npm run db:reset`| Réinitialise et re-remplit la base                      |
+| Script          | Description                    |
+| --------------- | ------------------------------ |
+| `npm run dev`   | Serveur de développement       |
+| `npm run build` | Build de production            |
+| `npm run start` | Lance le build de production   |
+| `npm run lint`  | Analyse du code (ESLint)       |
 
 ## 📁 Structure du projet
 
 ```
 techfind/
-├─ prisma/
-│  ├─ schema.prisma        # Modèle de données (tables & relations)
-│  └─ seed.ts              # Données de démonstration + vignettes
+├─ public/products/        # Photos des produits
 ├─ src/
 │  ├─ app/                 # Routes (App Router)
 │  │  ├─ (shop)/           # Pages avec header/footer (accueil, produits, panier…)
 │  │  ├─ connexion/        # Pages d'authentification (plein écran)
 │  │  └─ inscription/
-│  ├─ components/          # Composants réutilisables
-│  │  ├─ ui/               # Briques de base (Button, Input, Rating…)
-│  │  ├─ layout/           # Header, Footer, Newsletter
-│  │  ├─ product/          # ProductCard, filtres, carrousels…
-│  │  ├─ account/          # Formulaire de profil
-│  │  └─ auth/             # Coque et boutons d'authentification
-│  ├─ context/             # CartContext (panier)
+│  ├─ components/          # Composants réutilisables (ui/, layout/, product/, …)
+│  ├─ context/             # CartContext (panier) + AuthContext (comptes)
 │  └─ lib/                 # Logique métier
-│     ├─ actions/          # Server Actions (auth, commande, contact, profil)
-│     ├─ auth.ts           # Sessions + hachage des mots de passe
-│     ├─ data.ts           # Accès aux données (lecture)
+│     ├─ catalog.ts        # 👈 Catalogue : produits, catégories, magasins
+│     ├─ data.ts           # Accès aux données
 │     ├─ validation.ts     # Schémas Zod
-│     └─ utils.ts          # Formatage (prix FCFA), helpers
-└─ CLAUDE.md               # Conventions & règles de développement du projet
+│     └─ actions/          # Server Actions (commande, contact)
 ```
 
 ## 🔒 Sécurité
 
 La sécurité a été pensée dès la conception :
 
-- **Mots de passe hachés** avec bcrypt : jamais stockés en clair.
-- **Sessions** via un jeton aléatoire opaque + cookie `httpOnly` (inaccessible au JavaScript).
 - **Validation systématique côté serveur** (Zod) de toutes les entrées utilisateur.
-- **Montants recalculés côté serveur** au paiement : les prix envoyés par le navigateur ne sont
+- **Montant de la commande recalculé côté serveur** : les prix envoyés par le navigateur ne sont
   jamais pris pour argent comptant.
 - **En-têtes de sécurité** (CSP, anti-clickjacking, nosniff…) configurés dans `next.config.ts`.
-- **Aucun secret dans le code** : tout passe par des variables d'environnement (`.env` ignoré par git).
-- Requêtes **paramétrées** via Prisma (protection contre les injections SQL).
-
-> 🔧 Pistes d'amélioration pour une mise en production à grande échelle : limitation du taux de
-> requêtes (rate-limiting) sur la connexion, CSP à base de *nonce*, et intégration d'un prestataire
-> de paiement (Stripe / Mobile Money) : les points d'intégration sont documentés dans le code.
+- **Aucun secret dans le code.** Les mots de passe ne sont jamais stockés en clair (empreinte en
+  démo ; **bcrypt** côté serveur dans la version full-stack).
 
 ## 🎨 Personnalisation
 
-- **Couleurs & typographie** : `src/app/globals.css` (bloc `@theme`). Modifiez une valeur, elle se
-  répercute sur tout le site.
-- **Produits & catégories** : `prisma/seed.ts`, puis `npm run db:seed`.
+- **Produits, catégories, magasins** : `src/lib/catalog.ts` (photos dans `public/products/`).
+- **Couleurs & typographie** : `src/app/globals.css` (bloc `@theme`).
 - **Coordonnées / liens du footer** : `src/lib/site.ts`.
-- **Vraies photos produit** : remplacez les fichiers `public/products/<slug>.svg`.
 
 ## ☁️ Déploiement
 
-Le projet se déploie facilement sur **Vercel**. Pour la production, il est recommandé de passer de
-SQLite à **PostgreSQL** :
+Déploiement **Vercel** en un clic, sans configuration :
 
-1. Dans `prisma/schema.prisma`, remplacez `provider = "sqlite"` par `provider = "postgresql"`.
-2. Renseignez `DATABASE_URL` (URL PostgreSQL) dans les variables d'environnement.
-3. Lancez `npm run db:push` puis `npm run db:seed`.
+1. Importez le dépôt sur [vercel.com/new](https://vercel.com/new).
+2. Laissez les réglages par défaut (Next.js détecté automatiquement).
+3. Cliquez sur **Deploy**. 🎉
 
 ## 🎯 Maquettes Figma
 

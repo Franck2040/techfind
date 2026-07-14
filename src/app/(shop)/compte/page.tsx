@@ -1,35 +1,40 @@
+"use client";
 /**
- * compte/page.tsx — Espace compte (profil + commandes). PAGE PROTÉGÉE.
+ * compte/page.tsx — Espace compte (mode démo). PAGE PROTÉGÉE.
  * -----------------------------------------------------------------------------
- * Si l'utilisateur n'est pas connecté, on le redirige vers /connexion.
- * On y affiche : bienvenue + déconnexion, le formulaire de profil, et la liste
- * des commandes réelles de l'utilisateur.
+ * Réservé aux utilisateurs connectés (via AuthContext, côté navigateur) : si
+ * personne n'est connecté, on redirige vers /connexion. Affiche le profil et
+ * les commandes passées dans ce navigateur.
  */
-import { redirect } from "next/navigation";
+import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 import { User } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { Breadcrumb } from "@/components/ui/Breadcrumb";
 import { ProfileForm } from "@/components/account/ProfileForm";
-import { getCurrentUser } from "@/lib/auth";
-import { getUserOrders } from "@/lib/data";
-import { logoutAction } from "@/lib/actions/auth";
+import { useAuth } from "@/context/AuthContext";
+import { getOrders, type DemoOrder } from "@/lib/demoOrders";
 import { formatPrice } from "@/lib/utils";
 
-export const metadata = { title: "Mon compte" };
+export default function AccountPage() {
+  const { user, isReady, logout } = useAuth();
+  const router = useRouter();
+  const [orders, setOrders] = useState<DemoOrder[]>([]);
 
-const STATUS_LABELS: Record<string, string> = {
-  en_attente: "En attente",
-  payee: "Payée",
-  expediee: "Expédiée",
-  livree: "Livrée",
-  annulee: "Annulée",
-};
+  // Redirection si non connecté (une fois l'état chargé).
+  useEffect(() => {
+    if (isReady && !user) router.replace("/connexion");
+  }, [isReady, user, router]);
 
-export default async function AccountPage() {
-  const user = await getCurrentUser();
-  if (!user) redirect("/connexion"); // protection : réservé aux connectés
+  // Charge les commandes de l'utilisateur (ce navigateur).
+  useEffect(() => {
+    if (user) setOrders(getOrders().filter((o) => o.email === user.email));
+  }, [user]);
 
-  const orders = await getUserOrders(user.id);
+  if (!isReady || !user) {
+    return <Container className="py-20 text-center text-muted">Chargement…</Container>;
+  }
+
   const dateFmt = new Intl.DateTimeFormat("fr-FR", { dateStyle: "medium" });
 
   return (
@@ -62,19 +67,25 @@ export default async function AccountPage() {
                 </a>
               </li>
             </ul>
-            {/* Déconnexion via une action serveur */}
-            <form action={logoutAction} className="mt-3 border-t border-line pt-3">
-              <button type="submit" className="text-sm text-danger hover:underline">
+            <div className="mt-3 border-t border-line pt-3">
+              <button
+                type="button"
+                onClick={() => {
+                  logout();
+                  router.push("/");
+                }}
+                className="text-sm text-danger hover:underline"
+              >
                 Se déconnecter
               </button>
-            </form>
+            </div>
           </nav>
         </aside>
 
         {/* Contenu */}
         <div className="space-y-8">
           <div id="profil">
-            <ProfileForm name={user.name} email={user.email} address={user.address ?? ""} />
+            <ProfileForm />
           </div>
 
           <section id="commandes">
@@ -91,19 +102,16 @@ export default async function AccountPage() {
                     className="flex flex-wrap items-center justify-between gap-3 rounded-xl border border-line p-4"
                   >
                     <div>
-                      <a
-                        href={`/commande/${order.id}`}
-                        className="font-heading font-semibold text-navy hover:text-orange"
-                      >
-                        Commande #{order.id.slice(-8).toUpperCase()}
-                      </a>
+                      <p className="font-heading font-semibold text-navy">
+                        Commande #{order.id.slice(0, 8).toUpperCase()}
+                      </p>
                       <p className="text-sm text-muted">
-                        {dateFmt.format(order.createdAt)} · {order.items.length} article(s)
+                        {dateFmt.format(new Date(order.createdAt))} · {order.items.length} article(s)
                       </p>
                     </div>
                     <div className="flex items-center gap-4">
                       <span className="rounded-full bg-sky-soft px-3 py-1 text-xs font-medium text-navy">
-                        {STATUS_LABELS[order.status] ?? order.status}
+                        En attente
                       </span>
                       <span className="font-semibold text-navy">{formatPrice(order.total)}</span>
                     </div>

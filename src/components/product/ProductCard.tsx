@@ -16,7 +16,7 @@ import { ProductImage } from "@/components/product/ProductImage";
 import { Rating } from "@/components/ui/Rating";
 import { useCart } from "@/context/CartContext";
 import { formatPrice, parseList, cn } from "@/lib/utils";
-import type { Product } from "@prisma/client";
+import type { Product } from "@/lib/catalog";
 
 export function ProductCard({ product }: { product: Product }) {
   const { addItem } = useCart();
@@ -48,8 +48,8 @@ export function ProductCard({ product }: { product: Product }) {
   return (
     <div className="group flex flex-col overflow-hidden rounded-xl border border-line bg-white transition-shadow hover:shadow-md">
       {/* Zone image */}
-      <div className="relative aspect-square bg-white p-4">
-        <ProductImage src={product.image} alt={product.name} className="p-2" />
+      <div className="relative aspect-square overflow-hidden bg-surface">
+        <ProductImage src={product.image} alt={product.name} sizes="(max-width: 768px) 50vw, 300px" />
 
         {/* Lien invisible couvrant l'image (navigation vers la fiche) */}
         <Link href={href} className="absolute inset-0 z-10" aria-label={product.name} />

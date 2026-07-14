@@ -38,7 +38,7 @@ export const FOOTER_LINKS = {
     title: "Mieux nous connaître",
     links: [
       { label: "Nous contacter", href: "/contact" },
-      { label: "Nos services", href: "/a-propos" },
+      { label: "Nos magasins", href: "/nos-magasins" },
       { label: "Notre politique", href: "/a-propos" },
       { label: "Tous les produits", href: "/produits" },
     ],

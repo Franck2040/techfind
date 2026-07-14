@@ -11,6 +11,13 @@ import { ProductDetail } from "@/components/product/ProductDetail";
 import { ProductTabs } from "@/components/product/ProductTabs";
 import { ProductCarousel } from "@/components/product/ProductCarousel";
 import { getProductBySlug, getRelatedProducts } from "@/lib/data";
+import { products } from "@/lib/catalog";
+
+// Pré-génère une page statique pour CHAQUE produit au build (SSG) : pages
+// ultra-rapides, servies comme du HTML statique sur Vercel.
+export function generateStaticParams() {
+  return products.map((p) => ({ slug: p.slug }));
+}
 
 // Métadonnées dynamiques (titre = nom du produit) pour le SEO.
 export async function generateMetadata({

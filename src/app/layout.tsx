@@ -13,6 +13,8 @@
 import type { Metadata } from "next";
 import { Poppins, Inter } from "next/font/google";
 import "./globals.css";
+import { AuthProvider } from "@/context/AuthContext";
+import { CartProvider } from "@/context/CartContext";
 
 // Police des TITRES : Poppins (arrondie, fidèle à la maquette).
 // On ne charge que les graisses utilisées pour alléger le site.
@@ -46,7 +48,12 @@ export default function RootLayout({
   return (
     // lang="fr" : important pour l'accessibilité et le SEO (site en français).
     <html lang="fr" className={`${poppins.variable} ${inter.variable} h-full`}>
-      <body className="flex min-h-full flex-col antialiased">{children}</body>
+      <body className="flex min-h-full flex-col antialiased">
+        {/* Contextes globaux : authentification (démo) + panier */}
+        <AuthProvider>
+          <CartProvider>{children}</CartProvider>
+        </AuthProvider>
+      </body>
     </html>
   );
 }
